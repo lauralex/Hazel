@@ -52,16 +52,16 @@ namespace Hazel {
 
 	struct NativeScriptComponent
 	{
-		ScriptableEntity* Instance = nullptr;
+		std::shared_ptr<ScriptableEntity> Instance = nullptr;
 
-		ScriptableEntity*(*InstantiateScript)();
+		std::shared_ptr<ScriptableEntity>(*InstantiateScript)();
 		void (*DestroyScript)(NativeScriptComponent*);
 
 		template<typename T>
 		void Bind()
 		{
-			InstantiateScript = []() { return static_cast<ScriptableEntity*>(new T()); };
-			DestroyScript = [](NativeScriptComponent* nsc) { delete nsc->Instance; nsc->Instance = nullptr; };
+			InstantiateScript = []() { return std::dynamic_pointer_cast<ScriptableEntity>(std::make_shared<T>()) ; };
+			DestroyScript = [](NativeScriptComponent* nsc) { nsc->Instance.reset(); nsc->Instance = nullptr; };
 		}
 	};
 
