@@ -60,7 +60,7 @@ namespace Hazel {
 		template<typename T>
 		void Bind()
 		{
-			InstantiateScript = []() { return std::dynamic_pointer_cast<ScriptableEntity>(std::make_shared<T>()) ; };
+			InstantiateScript = []() { return std::static_pointer_cast<ScriptableEntity>(std::make_shared<T>()) ; };
 			DestroyScript = [](NativeScriptComponent* nsc) { nsc->Instance.reset(); nsc->Instance = nullptr; };
 		}
 	};

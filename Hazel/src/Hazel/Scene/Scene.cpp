@@ -31,7 +31,7 @@ namespace Hazel {
 	{
 		// Update scripts
 		{
-			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+			m_Registry.view<NativeScriptComponent>().each([=](entt::entity entity, NativeScriptComponent& nsc)
 			{
 				// TODO: Move to Scene::OnScenePlay
 				if (!nsc.Instance)
